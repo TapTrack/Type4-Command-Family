@@ -15,6 +15,9 @@ import com.taptrack.tcmptappy.tcmp.common.CommandCodeNotSupportedException;
 import com.taptrack.tcmptappy.tcmp.common.CommandFamily;
 import com.taptrack.tcmptappy.tcmp.common.ResponseCodeNotSupportedException;
 
+/**
+ * Command library for Type 4 commands and responses.
+ */
 public class Type4CommandLibrary implements CommandFamily {
     public static final byte[] FAMILY_ID = new byte[]{0x00,0x04};
 

@@ -3,6 +3,10 @@ package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses;
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
+/**
+ * Response with the major and minor version of Type 4 library that the
+ * Tappy supports.
+ */
 public class Type4LibraryVersionResponse extends AbstractType4Message {
     public static final byte COMMAND_CODE = 0x05;
     byte mMajorVersion;

@@ -2,6 +2,11 @@ package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands;
 
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
+/**
+ * Directly transceive an APDU to the card. The APDU should be fully composed
+ * by the creator, the Tappy merely send the byte array specified to the tag
+ * it is connected to.
+ */
 public class TransceiveApduCommand extends AbstractType4Message {
     public static final byte COMMAND_CODE = (byte) 0x02;
     private byte[] apdu;

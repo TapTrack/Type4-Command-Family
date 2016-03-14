@@ -3,6 +3,11 @@ package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses;
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
+/**
+ * Response corresponding to the tappy successfully transceiving an APDU to
+ * a type 4 card. Contains the APDU that the card responded with. Usually will
+ * contain at least a status word, but theoretically could be of zero length.
+ */
 public class APDUTransceiveSuccessfulResponse extends AbstractType4Message {
     public static final byte COMMAND_CODE = 0x02;
 

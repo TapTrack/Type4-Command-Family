@@ -7,8 +7,33 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * This class is response is sent by the Tappy when an error is
+ * encountered performing a Type4 command.
+ *
+ * See also {@link Type4PollingErrorResponse} for a different
+ * error response that can be returned in a more specific circumstance.
+ */
 public class Type4ErrorResponse extends AbstractType4Message {
     public static final byte COMMAND_CODE = 0x7F;
+
+    public interface ErrorCodes {
+        byte TOO_FEW_PARAMETERS = 0x01;
+        byte TOO_MANY_PARAMETERS = 0x02;
+        byte TRANSCEIVE_ERROR = 0x03;
+        byte INVALID_PARAMETER = 0x04;
+        /**
+         * This occurs if the Tappy detects that there are no tags activated in its
+         * field when a transceive is requested
+         */
+        byte NO_TAG_PRESENT = 0x05;
+        /**
+         * Occurs when there was an error requesting general status information
+         * before a transceive command
+         */
+        byte NFC_CHIP_ERROR = 0x06;
+    }
+
     byte errorCode;
     byte internalError;
     byte pn532Status;

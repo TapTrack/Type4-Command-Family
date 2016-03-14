@@ -9,6 +9,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * Response for a Type 4 tag being detected. Includes the tag's UID
+ * as well as the response to the RATS (Request for Answer to Select) command
+ * if the card provided one.
+ */
 public class Type4DetectedResponse extends AbstractType4Message {
     public static final byte COMMAND_CODE = 0x01;
 

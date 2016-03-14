@@ -3,6 +3,13 @@ package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands;
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
+/**
+ * Command for telling the Tappy to search for an NFC Forum Type 4 tag.
+ *
+ * In the Android NFC SDK, this corresponds to an IsoDep tag.
+ *
+ * Note: for all uses of timeout, a value of 0 corresponds to infinite polling.
+ */
 public class DetectType4Command extends AbstractType4Message {
     public static final byte COMMAND_CODE = (byte) 0x01;
     private byte timeout;

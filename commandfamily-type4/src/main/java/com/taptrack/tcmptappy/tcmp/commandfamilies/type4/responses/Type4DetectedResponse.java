@@ -25,14 +25,30 @@ public class Type4DetectedResponse extends AbstractType4Message {
         this.ats = ats;
     }
 
+    public byte[] getUid() {
+        return uid;
+    }
+
+    public void setUid(byte[] uid) {
+        this.uid = uid;
+    }
+
+    public byte[] getAts() {
+        return ats;
+    }
+
+    public void setAts(byte[] ats) {
+        this.ats = ats;
+    }
+
     public static Type4DetectedResponse fromPayload(byte[] payload) throws MalformedPayloadException {
-        if(payload.length != 1) {
+        if(payload.length == 0) {
             throw new MalformedPayloadException("Payload must be at least a single byte");
         }
 
         int uidLength = payload[0] & 0xff;
 
-        if((uidLength + 1) < payload.length) {
+        if((uidLength + 1) > payload.length) {
             throw new MalformedPayloadException("Payload too short to contain UID length specified");
         }
 
@@ -40,7 +56,7 @@ public class Type4DetectedResponse extends AbstractType4Message {
 
         byte[] ats;
         if(payload.length > uidLength+1) {
-            ats = Arrays.copyOfRange(payload,uidLength,payload.length);
+            ats = Arrays.copyOfRange(payload,(uidLength+1),payload.length);
         }
         else {
             ats = new byte[0];
@@ -57,7 +73,7 @@ public class Type4DetectedResponse extends AbstractType4Message {
             byteArrayOutputStream.write(uid);
             byteArrayOutputStream.write(ats);
         } catch (IOException e) {
-            Log.wtf(Type4DetectedResponse.class.getSimpleName(),"Error composing payload",e);
+            Log.wtf(Type4DetectedResponse.class.getSimpleName(), "Error composing payload", e);
         }
         return byteArrayOutputStream.toByteArray();
     }

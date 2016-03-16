@@ -7,7 +7,8 @@ public class DetectType4CommandTest {
 
     @Test
     public void testFromPayload() throws Exception {
-        DetectType4Command command = DetectType4Command.fromPayload(new byte[]{(byte)0x05});
+        DetectType4Command command = new DetectType4Command();
+        command.parsePayload(new byte[]{(byte)0x05});
         assertEquals(command.getTimeout(),(byte)0x05);
     }
 

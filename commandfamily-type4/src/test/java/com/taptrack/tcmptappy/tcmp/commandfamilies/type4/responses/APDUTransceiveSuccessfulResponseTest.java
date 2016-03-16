@@ -10,7 +10,8 @@ public class APDUTransceiveSuccessfulResponseTest {
     @Test
     public void testFromPayload() throws Exception {
         byte[] apdu = new byte[]{(byte) 0x00,(byte) 0x03,(byte) 0x53,(byte) 0xFE, (byte) 0xA5};
-        APDUTransceiveSuccessfulResponse transceiveApduCommand = APDUTransceiveSuccessfulResponse.fromPayload(apdu);
+        APDUTransceiveSuccessfulResponse transceiveApduCommand = new APDUTransceiveSuccessfulResponse();
+        transceiveApduCommand.parsePayload(apdu);
         assertArrayEquals(transceiveApduCommand.getPayload(),apdu);
     }
 

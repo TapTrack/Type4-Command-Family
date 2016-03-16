@@ -22,10 +22,10 @@ public class DetectType4Command extends AbstractType4Message {
         this.timeout = timeout;
     }
 
-
-    public static DetectType4Command fromPayload(byte[] payload) throws MalformedPayloadException {
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
         if(payload.length == 1) {
-            return new DetectType4Command(payload[0]);
+            timeout = payload[0];
         }
         else {
             throw new MalformedPayloadException("Payload should be a single byte");

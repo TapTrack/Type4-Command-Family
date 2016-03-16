@@ -17,12 +17,14 @@ public class APDUTransceiveSuccessfulResponse extends AbstractType4Message {
         apdu = new byte[0];
     }
 
+
     public APDUTransceiveSuccessfulResponse(byte[] apdu) {
         this.apdu = apdu;
     }
 
-    public static APDUTransceiveSuccessfulResponse fromPayload(byte[] payload) throws MalformedPayloadException {
-        return new APDUTransceiveSuccessfulResponse(payload);
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+        apdu = payload;
     }
 
     public byte[] getApdu() {

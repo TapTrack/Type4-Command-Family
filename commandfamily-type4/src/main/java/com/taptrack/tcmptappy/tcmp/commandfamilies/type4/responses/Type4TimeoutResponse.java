@@ -14,8 +14,9 @@ public class Type4TimeoutResponse extends AbstractType4Message {
 
     }
 
-    public static Type4TimeoutResponse fromPayload(byte[] payload) throws MalformedPayloadException {
-        return new Type4TimeoutResponse();
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+
     }
 
     @Override

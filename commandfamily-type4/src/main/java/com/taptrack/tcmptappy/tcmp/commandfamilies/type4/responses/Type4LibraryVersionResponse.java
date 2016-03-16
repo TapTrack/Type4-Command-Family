@@ -1,44 +1,53 @@
 package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses;
 
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
+import com.taptrack.tcmptappy.tcmp.StandardLibraryVersionResponse;
+import com.taptrack.tcmptappy.tcmp.StandardLibraryVersionResponseDelegate;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
 /**
  * Response with the major and minor version of Type 4 library that the
  * Tappy supports.
  */
-public class Type4LibraryVersionResponse extends AbstractType4Message {
+public class Type4LibraryVersionResponse extends AbstractType4Message implements StandardLibraryVersionResponse {
     public static final byte COMMAND_CODE = 0x05;
-    byte mMajorVersion;
-    byte mMinorVersion;
+    private StandardLibraryVersionResponseDelegate delegate;
 
     public Type4LibraryVersionResponse() {
-        mMajorVersion = 0x00;
-        mMinorVersion = 0x00;
+        delegate = new StandardLibraryVersionResponseDelegate();
     }
     public Type4LibraryVersionResponse(byte majorVersion, byte minorVersion) {
-        mMajorVersion = majorVersion;
-        mMinorVersion = minorVersion;
+        delegate = new StandardLibraryVersionResponseDelegate(majorVersion,minorVersion);
     }
 
-    public byte getMajorVersion () {
-        return mMajorVersion;
+    @Override
+    public byte getMajorVersion() {
+        return delegate.getMajorVersion();
     }
 
-    public byte getMinorVersion () {
-        return mMinorVersion;
+    @Override
+    public void setMajorVersion(byte majorVersion) {
+        delegate.setMajorVersion(majorVersion);
     }
 
-    public static Type4LibraryVersionResponse fromPayload(byte[] payload) throws MalformedPayloadException {
-        if(payload.length != 2)
-            throw new MalformedPayloadException();
+    @Override
+    public byte getMinorVersion() {
+        return delegate.getMinorVersion();
+    }
 
-        return new Type4LibraryVersionResponse(payload[0],payload[1]);
+    @Override
+    public void setMinorVersion(byte minorVersion) {
+        delegate.setMinorVersion(minorVersion);
+    }
+
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+        delegate.parsePayload(payload);
     }
 
     @Override
     public byte[] getPayload() {
-        return new byte[]{mMajorVersion,mMinorVersion};
+        return delegate.getPayload();
     }
 
     @Override

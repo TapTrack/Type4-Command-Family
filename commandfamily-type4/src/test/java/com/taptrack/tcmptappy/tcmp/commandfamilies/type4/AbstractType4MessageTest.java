@@ -1,5 +1,7 @@
 package com.taptrack.tcmptappy.tcmp.commandfamilies.type4;
 
+import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -9,6 +11,11 @@ public class AbstractType4MessageTest {
     @Test
     public void testGetCommandFamily() throws Exception {
         AbstractType4Message message = new AbstractType4Message() {
+            @Override
+            public void parsePayload(byte[] payload) throws MalformedPayloadException {
+
+            }
+
             @Override
             public byte[] getPayload() {
                 return new byte[0];

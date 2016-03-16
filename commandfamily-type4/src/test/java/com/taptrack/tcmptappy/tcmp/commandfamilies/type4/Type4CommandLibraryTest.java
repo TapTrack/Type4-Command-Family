@@ -30,6 +30,11 @@ public class Type4CommandLibraryTest {
     private static class FakeCommand extends AbstractType4Message {
 
         @Override
+        public void parsePayload(byte[] payload) throws MalformedPayloadException {
+
+        }
+
+        @Override
         public byte[] getPayload() {
             return new byte[0];
         }
@@ -41,6 +46,11 @@ public class Type4CommandLibraryTest {
     }
 
     private static class FakeResponse extends AbstractType4Message {
+
+        @Override
+        public void parsePayload(byte[] payload) throws MalformedPayloadException {
+
+        }
 
         @Override
         public byte[] getPayload() {

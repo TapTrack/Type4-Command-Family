@@ -1,5 +1,6 @@
 package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands;
 
+import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
 /**
@@ -15,12 +16,14 @@ public class TransceiveApduCommand extends AbstractType4Message {
         this.apdu = new byte[0];
     }
 
+
     public TransceiveApduCommand(byte[] apdu) {
         this.apdu = apdu;
     }
 
-    public static TransceiveApduCommand fromPayload(byte[] payload) {
-        return new TransceiveApduCommand(payload);
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+        apdu = payload;
     }
 
     public byte[] getApdu() {

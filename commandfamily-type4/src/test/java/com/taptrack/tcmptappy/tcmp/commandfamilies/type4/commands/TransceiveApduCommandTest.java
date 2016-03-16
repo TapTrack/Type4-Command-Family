@@ -9,7 +9,8 @@ public class TransceiveApduCommandTest {
     @Test
     public void testFromPayload() throws Exception {
         byte[] apdu = new byte[]{(byte) 0x00,(byte) 0x03,(byte) 0x53,(byte) 0xFE, (byte) 0xA5};
-        TransceiveApduCommand transceiveApduCommand = TransceiveApduCommand.fromPayload(apdu);
+        TransceiveApduCommand transceiveApduCommand = new TransceiveApduCommand();
+        transceiveApduCommand.parsePayload(apdu);
         assertArrayEquals(transceiveApduCommand.getPayload(),apdu);
     }
 

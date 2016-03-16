@@ -1,5 +1,6 @@
 package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands;
 
+import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
 
 /**
@@ -12,8 +13,9 @@ public class GetType4LibraryVersionCommand extends AbstractType4Message {
     public GetType4LibraryVersionCommand() {
     }
 
-    public static GetType4LibraryVersionCommand fromPayload(byte[] payload) {
-        return new GetType4LibraryVersionCommand();
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+
     }
 
     @Override

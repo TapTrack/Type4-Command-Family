@@ -1,11 +1,9 @@
 package com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses;
 
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
+import com.taptrack.tcmptappy.tcmp.StandardErrorResponse;
+import com.taptrack.tcmptappy.tcmp.StandardErrorResponseDelegate;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.AbstractType4Message;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * This class is response is sent by the Tappy when an error is
@@ -14,7 +12,7 @@ import java.util.Arrays;
  * See also {@link Type4PollingErrorResponse} for a different
  * error response that can be returned in a more specific circumstance.
  */
-public class Type4ErrorResponse extends AbstractType4Message {
+public class Type4ErrorResponse extends AbstractType4Message implements StandardErrorResponse {
     public static final byte COMMAND_CODE = 0x7F;
 
     public interface ErrorCodes {
@@ -34,94 +32,69 @@ public class Type4ErrorResponse extends AbstractType4Message {
         byte NFC_CHIP_ERROR = 0x06;
     }
 
-    byte errorCode;
-    byte internalError;
-    byte pn532Status;
-    String errorMessage;
+    private StandardErrorResponseDelegate delegate;
 
     public Type4ErrorResponse() {
-        errorCode = 0x00;
-        internalError= 0x00;
-        pn532Status = 0x00;
-        errorMessage = "";
+        delegate = new StandardErrorResponseDelegate();
     }
 
-    public Type4ErrorResponse(byte errorCode, byte internalError, byte pn532Status, String errorMessage) {
-        this.errorCode = errorCode;
-        this.internalError = internalError;
-        this.pn532Status = pn532Status;
-        this.errorMessage = errorMessage;
+    public Type4ErrorResponse(byte errorCode, byte internalErrorCode, byte readerStatus, String errorMessage) {
+        delegate = new StandardErrorResponseDelegate(errorCode,internalErrorCode,readerStatus,errorMessage);
     }
 
-    public static Type4ErrorResponse fromPayload(byte[] payload) throws MalformedPayloadException {
-        if (payload.length >= 3) {
-            byte errorCode = (byte) (payload[0] & 0xff);
-            byte internalError = (byte) (payload[1] & 0xff);
-            byte pn532Status = (byte) (payload[2] & 0xff);
-            String errorMessage;
-            if (payload.length > 3) {
-                byte[] message = Arrays.copyOfRange(payload, 3, payload.length);
-                errorMessage = new String(message);
-            } else {
-                errorMessage = "";
-            }
-            return new Type4ErrorResponse(errorCode,internalError,pn532Status,errorMessage);
-        } else {
-            throw new MalformedPayloadException("Payload too short");
-        }
-    }
-
-
+    @Override
     public byte getErrorCode() {
-        return errorCode;
+        return delegate.getErrorCode();
     }
 
+    @Override
     public void setErrorCode(byte errorCode) {
-        this.errorCode = errorCode;
+        delegate.setErrorCode(errorCode);
     }
 
-    public byte getInternalError() {
-        return internalError;
+    @Override
+    public byte getInternalErrorCode() {
+        return delegate.getInternalErrorCode();
     }
 
-    public void setInternalError(byte internalError) {
-        this.internalError = internalError;
+    @Override
+    public void setInternalErrorCode(byte internalErrorCode) {
+        delegate.setInternalErrorCode(internalErrorCode);
     }
 
-    public byte getPn532Status() {
-        return pn532Status;
+    @Override
+    public byte getReaderStatus() {
+        return delegate.getReaderStatus();
     }
 
-    public void setPn532Status(byte pn532Status) {
-        this.pn532Status = pn532Status;
+    @Override
+    public void setReaderStatus(byte readerStatus) {
+        delegate.setReaderStatus(readerStatus);
     }
 
+    @Override
     public String getErrorMessage() {
-        return errorMessage;
+        return delegate.getErrorMessage();
     }
 
+    @Override
     public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+        delegate.setErrorMessage(errorMessage);
+    }
+
+    @Override
+    public void setErrorMessage(byte[] errorMessage) {
+        delegate.setErrorMessage(errorMessage);
+    }
+
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+        delegate.parsePayload(payload);
     }
 
     @Override
     public byte[] getPayload() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(3+errorMessage.length());
-        outputStream.write(errorCode);
-        outputStream.write(internalError);
-        outputStream.write(pn532Status);
-        try {
-            outputStream.write(errorMessage.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] payload = outputStream.toByteArray();
-        try {
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return payload;
+        return delegate.getPayload();
     }
 
     @Override

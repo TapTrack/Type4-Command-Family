@@ -11,8 +11,9 @@ public class Type4PollingErrorResponse extends AbstractType4Message {
 
     }
 
-    public static Type4PollingErrorResponse fromPayload(byte[] payload) throws MalformedPayloadException {
-        return new Type4PollingErrorResponse();
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
+
     }
 
     @Override

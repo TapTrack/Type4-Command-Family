@@ -1,1 +1,1 @@
-include ':app', ':commandfamily-type4'
+include ':commandfamily-type4'

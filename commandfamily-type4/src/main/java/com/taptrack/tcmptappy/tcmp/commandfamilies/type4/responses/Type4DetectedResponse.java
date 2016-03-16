@@ -46,7 +46,8 @@ public class Type4DetectedResponse extends AbstractType4Message {
         this.ats = ats;
     }
 
-    public static Type4DetectedResponse fromPayload(byte[] payload) throws MalformedPayloadException {
+    @Override
+    public void parsePayload(byte[] payload) throws MalformedPayloadException {
         if(payload.length == 0) {
             throw new MalformedPayloadException("Payload must be at least a single byte");
         }
@@ -57,9 +58,8 @@ public class Type4DetectedResponse extends AbstractType4Message {
             throw new MalformedPayloadException("Payload too short to contain UID length specified");
         }
 
-        byte[] uid = Arrays.copyOfRange(payload,1,uidLength+1);
+        uid = Arrays.copyOfRange(payload,1,uidLength+1);
 
-        byte[] ats;
         if(payload.length > uidLength+1) {
             ats = Arrays.copyOfRange(payload,(uidLength+1),payload.length);
         }
@@ -67,7 +67,6 @@ public class Type4DetectedResponse extends AbstractType4Message {
             ats = new byte[0];
         }
 
-        return new Type4DetectedResponse(uid,ats);
     }
 
     @Override

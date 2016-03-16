@@ -84,7 +84,8 @@ public class Type4DetectedResponseTest {
     private void testFromPayload(byte[] uid, byte[] ats) {
         byte[] payload = generatePayload(uid,ats);
         try {
-            Type4DetectedResponse response = Type4DetectedResponse.fromPayload(payload);
+            Type4DetectedResponse response = new Type4DetectedResponse();
+            response.parsePayload(payload);
             assertArrayEquals(
                     String.format("Comparing UIDs, expected %s, received %s",
                             TestUtils.bytesToHex(uid),

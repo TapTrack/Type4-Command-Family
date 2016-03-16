@@ -23,40 +23,57 @@ public class Type4CommandLibrary implements CommandFamily {
 
     @Override
     public TCMPMessage parseCommand(TCMPMessage message) throws CommandCodeNotSupportedException, MalformedPayloadException {
+        TCMPMessage parsedMessage;
         switch(message.getCommandCode()) {
             case DetectType4Command.COMMAND_CODE:
-                return DetectType4Command.fromPayload(message.getPayload());
+                parsedMessage = new DetectType4Command();
+                break;
             case GetType4LibraryVersionCommand.COMMAND_CODE:
-                return GetType4LibraryVersionCommand.fromPayload(message.getPayload());
+                parsedMessage = new GetType4LibraryVersionCommand();
+                break;
             case TransceiveApduCommand.COMMAND_CODE:
-                return TransceiveApduCommand.fromPayload(message.getPayload());
+                parsedMessage = new TransceiveApduCommand();
+                break;
             default:
                 throw new CommandCodeNotSupportedException(
                         Type4CommandLibrary.class.getSimpleName()+
                                 " doesn't support command code "+String.format("%02X",message.getCommandCode()));
         }
+        parsedMessage.parsePayload(message.getPayload());
+
+        return parsedMessage;
     }
 
     @Override
     public TCMPMessage parseResponse(TCMPMessage message) throws ResponseCodeNotSupportedException, MalformedPayloadException {
+        TCMPMessage parsedMessage;
         switch(message.getCommandCode()) {
             case APDUTransceiveSuccessfulResponse.COMMAND_CODE:
-                return APDUTransceiveSuccessfulResponse.fromPayload(message.getPayload());
+                parsedMessage = new APDUTransceiveSuccessfulResponse();
+                break;
             case Type4DetectedResponse.COMMAND_CODE:
-                return Type4DetectedResponse.fromPayload(message.getPayload());
+                parsedMessage = new Type4DetectedResponse();
+                break;
             case Type4ErrorResponse.COMMAND_CODE:
-                return Type4ErrorResponse.fromPayload(message.getPayload());
+                parsedMessage = new Type4ErrorResponse();
+                break;
             case Type4LibraryVersionResponse.COMMAND_CODE:
-                return Type4LibraryVersionResponse.fromPayload(message.getPayload());
+                parsedMessage = new Type4LibraryVersionResponse();
+                break;
             case Type4PollingErrorResponse.COMMAND_CODE:
-                return Type4PollingErrorResponse.fromPayload(message.getPayload());
+                parsedMessage = new Type4PollingErrorResponse();
+                break;
             case Type4TimeoutResponse.COMMAND_CODE:
-                return Type4TimeoutResponse.fromPayload(message.getPayload());
+                parsedMessage = new Type4TimeoutResponse();
+                break;
             default:
                 throw new ResponseCodeNotSupportedException(
                         Type4CommandLibrary.class.getSimpleName()+
                                 " doesn't support response code "+String.format("%02X",message.getCommandCode()));
         }
+        parsedMessage.parsePayload(message.getPayload());
+
+        return parsedMessage;
     }
 
     @Override

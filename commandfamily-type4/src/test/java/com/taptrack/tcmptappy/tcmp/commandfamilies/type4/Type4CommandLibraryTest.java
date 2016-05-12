@@ -2,10 +2,13 @@ package com.taptrack.tcmptappy.tcmp.commandfamilies.type4;
 
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.TCMPMessage;
+import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.DetectType4BCommand;
+import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.DetectType4Command;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.GetType4LibraryVersionCommand;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
+import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4BDetectedResponse;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4DetectedResponse;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4ErrorResponse;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4LibraryVersionResponse;
@@ -66,6 +69,8 @@ public class Type4CommandLibraryTest {
     @Test
     public void testParseCommand() throws Exception {
         testCommand(new DetectType4Command((byte) 5), DetectType4Command.class);
+        testCommand(new DetectType4BCommand(), DetectType4BCommand.class);
+        testCommand(new DetectType4BSpecificAfiCommand(), DetectType4BSpecificAfiCommand.class);
         testCommand(new GetType4LibraryVersionCommand(), GetType4LibraryVersionCommand.class);
 
         byte[] apdu = new byte[20];
@@ -100,6 +105,13 @@ public class Type4CommandLibraryTest {
         random.nextBytes(uid);
         random.nextBytes(ats);
         testResponse(new Type4DetectedResponse(uid, ats), Type4DetectedResponse.class);
+
+        byte[] atqb = new byte[255];
+        byte[] attrib = new byte[255];
+        random.nextBytes(atqb);
+        random.nextBytes(attrib);
+        testResponse(new Type4BDetectedResponse(atqb,attrib), Type4BDetectedResponse.class);
+
         testResponse(new Type4ErrorResponse((byte) 0x02,(byte)  0x03,(byte)  0x04, "Test"), Type4ErrorResponse.class);
         testResponse(new Type4LibraryVersionResponse((byte)0x0a,(byte)0x12),Type4LibraryVersionResponse.class);
         testResponse(new Type4PollingErrorResponse(),Type4PollingErrorResponse.class);

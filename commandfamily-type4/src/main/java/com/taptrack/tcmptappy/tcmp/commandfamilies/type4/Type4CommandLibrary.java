@@ -2,10 +2,13 @@ package com.taptrack.tcmptappy.tcmp.commandfamilies.type4;
 
 import com.taptrack.tcmptappy.tcmp.MalformedPayloadException;
 import com.taptrack.tcmptappy.tcmp.TCMPMessage;
+import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.DetectType4BCommand;
+import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.DetectType4Command;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.GetType4LibraryVersionCommand;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
+import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4BDetectedResponse;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4DetectedResponse;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4ErrorResponse;
 import com.taptrack.tcmptappy.tcmp.commandfamilies.type4.responses.Type4LibraryVersionResponse;
@@ -30,6 +33,12 @@ public class Type4CommandLibrary implements CommandFamily {
                 break;
             case GetType4LibraryVersionCommand.COMMAND_CODE:
                 parsedMessage = new GetType4LibraryVersionCommand();
+                break;
+            case DetectType4BCommand.COMMAND_CODE:
+                parsedMessage = new DetectType4BCommand();
+                break;
+            case DetectType4BSpecificAfiCommand.COMMAND_CODE:
+                parsedMessage = new DetectType4BSpecificAfiCommand();
                 break;
             case TransceiveApduCommand.COMMAND_CODE:
                 parsedMessage = new TransceiveApduCommand();
@@ -65,6 +74,9 @@ public class Type4CommandLibrary implements CommandFamily {
                 break;
             case Type4TimeoutResponse.COMMAND_CODE:
                 parsedMessage = new Type4TimeoutResponse();
+                break;
+            case Type4BDetectedResponse.COMMAND_CODE:
+                parsedMessage = new Type4BDetectedResponse();
                 break;
             default:
                 throw new ResponseCodeNotSupportedException(

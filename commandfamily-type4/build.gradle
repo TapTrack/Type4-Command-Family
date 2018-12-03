@@ -27,9 +27,9 @@ android {
 }
 
 dependencies {
-    compile libraries.tcmpCommandFamilyCommon
-    compile libraries.androidSupportAnnotations
-    testCompile libraries.junit
+    api libraries.tcmpCommandFamilyCommon
+    api libraries.androidSupportAnnotations
+    testImplementation libraries.junit
 }
 
 archivesBaseName = bintrayCfg.publishedArtifacts.type4.artifact

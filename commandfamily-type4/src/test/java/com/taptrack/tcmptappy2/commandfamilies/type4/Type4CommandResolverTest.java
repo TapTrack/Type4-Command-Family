@@ -2,12 +2,14 @@ package com.taptrack.tcmptappy2.commandfamilies.type4;
 
 import com.taptrack.tcmptappy2.MalformedPayloadException;
 import com.taptrack.tcmptappy2.TCMPMessage;
+import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4Command;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.GetType4LibraryVersionCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
+import com.taptrack.tcmptappy2.commandfamilies.type4.responses.ActiveHCETargetDetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4BDetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4DetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4ErrorResponse;
@@ -68,6 +70,7 @@ public class Type4CommandResolverTest {
     @Test
     public void testParseCommand() throws Exception {
         assertTrue(testCommandSupported(new DetectType4Command((byte) 5), DetectType4Command.class));
+        assertTrue(testCommandSupported(new DetectActiveHCETargetCommand((byte) 5), DetectActiveHCETargetCommand.class));
         assertTrue(testCommandSupported(new DetectType4BCommand(), DetectType4BCommand.class));
         assertTrue(testCommandSupported(new DetectType4BSpecificAfiCommand(), DetectType4BSpecificAfiCommand.class));
         assertTrue(testCommandSupported(new GetType4LibraryVersionCommand(), GetType4LibraryVersionCommand.class));
@@ -114,6 +117,10 @@ public class Type4CommandResolverTest {
         assertTrue(testResponseSupported(new Type4LibraryVersionResponse((byte)0x0a,(byte)0x12),Type4LibraryVersionResponse.class));
         assertTrue(testResponseSupported(new Type4PollingErrorResponse(),Type4PollingErrorResponse.class));
         assertTrue(testResponseSupported(new Type4TimeoutResponse(),Type4TimeoutResponse.class));
+
+        byte[] activeHceCmd = new byte[255];
+        random.nextBytes(activeHceCmd);
+        assertTrue(testResponseSupported(new ActiveHCETargetDetectedResponse(activeHceCmd),ActiveHCETargetDetectedResponse.class));
 
         assertFalse(testResponseSupported(new FakeResponse(),FakeResponse.class));
     }

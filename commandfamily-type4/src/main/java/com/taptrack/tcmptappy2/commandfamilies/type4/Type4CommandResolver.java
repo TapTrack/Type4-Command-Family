@@ -6,12 +6,14 @@ import android.support.annotation.Size;
 import com.taptrack.tcmptappy2.CommandFamilyMessageResolver;
 import com.taptrack.tcmptappy2.MalformedPayloadException;
 import com.taptrack.tcmptappy2.TCMPMessage;
+import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4Command;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.GetType4LibraryVersionCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
+import com.taptrack.tcmptappy2.commandfamilies.type4.responses.ActiveHCETargetDetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4BDetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4DetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4ErrorResponse;
@@ -54,6 +56,9 @@ public class Type4CommandResolver implements CommandFamilyMessageResolver {
             case TransceiveApduCommand.COMMAND_CODE:
                 parsedMessage = new TransceiveApduCommand();
                 break;
+            case DetectActiveHCETargetCommand.COMMAND_CODE:
+                parsedMessage = new DetectActiveHCETargetCommand();
+                break;
             default:
                 return null;
         }
@@ -88,6 +93,9 @@ public class Type4CommandResolver implements CommandFamilyMessageResolver {
                 break;
             case Type4BDetectedResponse.COMMAND_CODE:
                 parsedMessage = new Type4BDetectedResponse();
+                break;
+            case ActiveHCETargetDetectedResponse.COMMAND_CODE:
+                parsedMessage = new ActiveHCETargetDetectedResponse();
                 break;
             default:
                 return null;

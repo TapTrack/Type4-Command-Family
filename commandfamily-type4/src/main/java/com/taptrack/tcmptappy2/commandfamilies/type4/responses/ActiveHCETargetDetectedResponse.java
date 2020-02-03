@@ -6,9 +6,8 @@ import com.taptrack.tcmptappy2.MalformedPayloadException;
 import com.taptrack.tcmptappy2.commandfamilies.type4.AbstractType4Message;
 
 /**
- * Response for a Type 4 tag being detected. Includes the tag's UID
- * as well as the response to the RATS (Request for Answer to Select) command
- * if the card provided one.
+ * Response when an active reader has initialized the Tappy in HCE mode. It includes the the first valid APDU command recieved by the reader.
+   Note: The RATS (Request for Answer to Select) is automatically handled by the Tappy.
  */
 public class ActiveHCETargetDetectedResponse extends AbstractType4Message {
     public static final byte COMMAND_CODE = 0x08;

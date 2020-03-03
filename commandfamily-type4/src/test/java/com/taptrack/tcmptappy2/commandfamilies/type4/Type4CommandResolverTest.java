@@ -3,9 +3,11 @@ package com.taptrack.tcmptappy2.commandfamilies.type4;
 import com.taptrack.tcmptappy2.MalformedPayloadException;
 import com.taptrack.tcmptappy2.TCMPMessage;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetCommand;
+import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4Command;
+import com.taptrack.tcmptappy2.commandfamilies.type4.commands.GetNextCommandFromActiveReaderInitiatorCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.GetType4LibraryVersionCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
@@ -78,6 +80,9 @@ public class Type4CommandResolverTest {
         byte[] apdu = new byte[20];
         random.nextBytes(apdu);
         assertTrue(testCommandSupported(new TransceiveApduCommand(apdu), TransceiveApduCommand.class));
+
+        assertTrue(testCommandSupported(new DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand((byte) 5), DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand.class));
+        assertTrue(testCommandSupported(new GetNextCommandFromActiveReaderInitiatorCommand(), GetNextCommandFromActiveReaderInitiatorCommand.class));
 
         assertFalse(testCommandSupported(new FakeCommand(), FakeCommand.class));
     }

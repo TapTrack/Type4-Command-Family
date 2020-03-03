@@ -32,6 +32,12 @@ public class Type4ErrorResponse extends AbstractType4Message implements Standard
          * before a transceive command
          */
         byte NFC_CHIP_ERROR = 0x06;
+
+        /**
+         * Occurs when the active reader is successfully detected by the Tappy, but
+         * an error occured when the Tappy requested the first command APDU
+         */
+        byte REQUEST_FOR_INITIATOR_FIRST_COMMAND_FAILED = 0x07;
     }
 
     private StandardErrorResponseDelegate delegate;

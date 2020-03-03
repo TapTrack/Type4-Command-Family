@@ -40,7 +40,7 @@ ext.globalCfg = [
         minSdkVersion: 18,
         compileSdkVersion: 23,
         buildToolsVersion: "28.0.3",
-        publishedVersion: "1.1.1",
+        publishedVersion: "1.2.0",
         publishedGroupId : 'com.taptrack.tcmptappy2',
 ]
 

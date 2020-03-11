@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Type4.iml" filepath="$PROJECT_DIR$/Type4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/commandfamily-type4/commandfamily-type4.iml" filepath="$PROJECT_DIR$/commandfamily-type4/commandfamily-type4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Type4.iml" filepath="$PROJECT_DIR$/Type4.iml" group="Type4" />
+      <module fileurl="file://$PROJECT_DIR$/commandfamily-type4/commandfamily-type4.iml" filepath="$PROJECT_DIR$/commandfamily-type4/commandfamily-type4.iml" group="Type4/commandfamily-type4" />
     </modules>
   </component>
 </project>

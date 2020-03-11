@@ -7,6 +7,7 @@ import com.taptrack.tcmptappy2.CommandFamilyMessageResolver;
 import com.taptrack.tcmptappy2.MalformedPayloadException;
 import com.taptrack.tcmptappy2.TCMPMessage;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetCommand;
+import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetMultiModeWithoutRequestingInitialCommandCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
@@ -66,6 +67,9 @@ public class Type4CommandResolver implements CommandFamilyMessageResolver {
                 break;
             case GetNextCommandFromActiveReaderInitiatorCommand.COMMAND_CODE:
                 parsedMessage = new GetNextCommandFromActiveReaderInitiatorCommand();
+                break;
+            case DetectActiveHCETargetMultiModeWithoutRequestingInitialCommandCommand.COMMAND_CODE:
+                parsedMessage = new DetectActiveHCETargetMultiModeWithoutRequestingInitialCommandCommand();
                 break;
             default:
                 return null;

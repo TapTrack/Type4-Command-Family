@@ -3,6 +3,7 @@ package com.taptrack.tcmptappy2.commandfamilies.type4;
 import com.taptrack.tcmptappy2.MalformedPayloadException;
 import com.taptrack.tcmptappy2.TCMPMessage;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetCommand;
+import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveHCETargetMultiModeWithoutRequestingInitialCommandCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.DetectType4BSpecificAfiCommand;
@@ -83,6 +84,7 @@ public class Type4CommandResolverTest {
 
         assertTrue(testCommandSupported(new DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand((byte) 5), DetectActiveReaderTargetForEmulationWithoutRequestingInitialCommandCommand.class));
         assertTrue(testCommandSupported(new GetNextCommandFromActiveReaderInitiatorCommand(), GetNextCommandFromActiveReaderInitiatorCommand.class));
+        assertTrue(testCommandSupported(new DetectActiveHCETargetMultiModeWithoutRequestingInitialCommandCommand((byte) 5), DetectActiveHCETargetMultiModeWithoutRequestingInitialCommandCommand.class));
 
         assertFalse(testCommandSupported(new FakeCommand(), FakeCommand.class));
     }

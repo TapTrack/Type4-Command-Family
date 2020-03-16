@@ -17,6 +17,7 @@ import com.taptrack.tcmptappy2.commandfamilies.type4.commands.GetType4LibraryVer
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.ActiveHCETargetDetectedResponse;
+import com.taptrack.tcmptappy2.commandfamilies.type4.responses.ActiveHCETargetRemovedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4BDetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4DetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4ErrorResponse;
@@ -109,6 +110,9 @@ public class Type4CommandResolver implements CommandFamilyMessageResolver {
             case ActiveHCETargetDetectedResponse.COMMAND_CODE:
                 parsedMessage = new ActiveHCETargetDetectedResponse();
                 break;
+            case ActiveHCETargetRemovedResponse.COMMAND_CODE:
+                parsedMessage = new ActiveHCETargetRemovedResponse();
+            break;
             default:
                 return null;
         }

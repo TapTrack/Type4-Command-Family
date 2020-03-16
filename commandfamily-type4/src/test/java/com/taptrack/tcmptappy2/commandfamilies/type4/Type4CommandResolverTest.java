@@ -13,6 +13,7 @@ import com.taptrack.tcmptappy2.commandfamilies.type4.commands.GetType4LibraryVer
 import com.taptrack.tcmptappy2.commandfamilies.type4.commands.TransceiveApduCommand;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.APDUTransceiveSuccessfulResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.ActiveHCETargetDetectedResponse;
+import com.taptrack.tcmptappy2.commandfamilies.type4.responses.ActiveHCETargetRemovedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4BDetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4DetectedResponse;
 import com.taptrack.tcmptappy2.commandfamilies.type4.responses.Type4ErrorResponse;
@@ -124,6 +125,7 @@ public class Type4CommandResolverTest {
         assertTrue(testResponseSupported(new Type4LibraryVersionResponse((byte)0x0a,(byte)0x12),Type4LibraryVersionResponse.class));
         assertTrue(testResponseSupported(new Type4PollingErrorResponse(),Type4PollingErrorResponse.class));
         assertTrue(testResponseSupported(new Type4TimeoutResponse(),Type4TimeoutResponse.class));
+        assertTrue(testResponseSupported(new ActiveHCETargetRemovedResponse(),ActiveHCETargetRemovedResponse.class));
 
         byte[] activeHceCmd = new byte[255];
         random.nextBytes(activeHceCmd);
